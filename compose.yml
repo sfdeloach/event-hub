@@ -1,0 +1,11 @@
+services:
+  server:
+    image: sfdeloach/event-hub-server:latest
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+
