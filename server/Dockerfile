@@ -7,12 +7,21 @@ ARG TARGETARCH
 
 WORKDIR /app
 
+# Install Tailwind CSS standalone CLI
+RUN apk add --no-cache curl libstdc++ libgcc && \
+    curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-x64-musl && \
+    chmod +x tailwindcss-linux-x64-musl && \
+    mv tailwindcss-linux-x64-musl /usr/local/bin/tailwindcss
+
 # Copy go.mod and go.sum first for better layer caching
 COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the rest of the source code (done last to maximize cache efficiency)
 COPY . .
+
+# Build CSS (minified for production)
+RUN tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify
 
 # Builds the application as a statically linked binary, to allow it to run on alpine
 # TARGETOS and TARGETARCH are automatically set by Docker BuildKit
@@ -32,7 +41,7 @@ RUN apk -U upgrade \
 
 # Copy binary and assets
 COPY --from=builder /app/app .
-COPY --chown=appuser:appuser ./static ./static
+COPY --from=builder --chown=appuser:appuser /app/static ./static
 
 # Make the binary executable
 RUN chmod +x /app/app

@@ -9,4 +9,4 @@ services:
     ports:
       - "7331:7331"
     volumes:
-      - ./server:/app # Updated to match WORKDIR in Dockerfile.dev
+      - ./server:/app

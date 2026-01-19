@@ -1,8 +1,13 @@
 {
-    "cSpell.words": [
-        "alpinejs",
-        "htmx",
-        "stylesheet",
-        "templ"
-    ]
+  "cSpell.words": [
+    "alpinejs",
+    "htmx",
+    "libcrypto",
+    "libgcc",
+    "libstdc",
+    "proxybind",
+    "stylesheet",
+    "templ"
+  ],
+  "css.lint.unknownAtRules": "ignore"
 }

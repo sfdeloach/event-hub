@@ -12,6 +12,21 @@
 - 🚧 Session-based Auth stored in Redis
 - 🚧 GORM
 
+### setup
+
+#### Tailwind CSS
+
+ - Download [v.1.18](https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-x64) to `/server`
+   - **OPTIONAL:** Download [watchman-bin](https://aur.archlinux.org/packages/watchman-bin) but it works without it.
+ - Rename to `tailwindcss-4.1.18` and make executable with `chmod +x`
+ - **TODO:** Develop `up.sh` and `dn.sh` scripts to start Tailwind and Docker Compose
+   - `./tailwindcss-4.1.18 -i ./static/css/input.css -o ./static/css/output.css --watch`
+
+### resources
+
+- [The files & folders of Go projects](https://changelog.com/gotime/278)
+- [How I write HTTP services in Go after 13 years](https://grafana.com/blog/how-i-write-http-services-in-go-after-13-years/)
+
 ## database
 
 - 🚧 Postgres
