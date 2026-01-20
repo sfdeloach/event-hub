@@ -1,11 +1,13 @@
 services:
   server:
-    image: sfdeloach/event-hub-server:latest
+    image: sfdeloach/event-hub-server-dev:0.0.0
     build:
       context: ./server
       dockerfile: Dockerfile
     container_name: server
     restart: unless-stopped
     ports:
-      - "80:8080"
-
+      - "7331:7331"
+    volumes:
+      - /app/static/css
+      - ./server:/app
