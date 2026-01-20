@@ -6,8 +6,9 @@ services:
       dockerfile: Dockerfile
     container_name: server
     restart: unless-stopped
+    tty: true
     ports:
       - "7331:7331"
     volumes:
-      - /app/static/css
-      - ./server:/app
+      - ./server:/server   # All other source code located on host
+      - /server/static/css # TailwindCSS output directory located in container
