@@ -1,55 +1,48 @@
+# TWO STAGE PRODUCTION DOCKERFILE
+
 # ---Build stage---
-FROM golang:1.25.6-alpine AS builder
+FROM ubuntu:noble AS builder
 
 # Build arguments for multi-architecture support
 ARG TARGETOS
 ARG TARGETARCH
 
-WORKDIR /app
+WORKDIR /server
 
-# Install Tailwind CSS standalone CLI
-RUN apk add --no-cache curl libstdc++ libgcc && \
-    curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-x64-musl && \
-    chmod +x tailwindcss-linux-x64-musl && \
-    mv tailwindcss-linux-x64-musl /usr/local/bin/tailwindcss
+# Update packages and install Go
+RUN apt-get update \
+    && apt-get install -y golang-go ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy go.mod and go.sum first for better layer caching
+# Download Go modules
 COPY go.mod go.sum ./
 RUN go mod download
+
+# Install TailwindCSS CLI v4.1.18 (architecture-aware)
+RUN TAILWIND_ARCH=$([ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "x64") \
+    && curl -fL -o tailwind https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-${TAILWIND_ARCH} \
+    && chmod +x tailwind && mv tailwind /usr/local/bin/
 
 # Copy the rest of the source code (done last to maximize cache efficiency)
 COPY . .
 
 # Build CSS (minified for production)
-RUN tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify
+RUN tailwind -i ./tailwind.css -o ./static/css/style.css --minify
 
-# Builds the application as a statically linked binary, to allow it to run on alpine
+# Builds the application as a statically linked binary, to allow it to run on scratch
 # TARGETOS and TARGETARCH are automatically set by Docker BuildKit
-RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -a -installsuffix cgo -o app .
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -a -installsuffix cgo -o server . \
+    && chmod +x /server/server
 
 # ---Final stage---
-FROM alpine:3.23.2
+FROM scratch
 
-WORKDIR /app
-
-# Add packages and create non-root user
-RUN apk -U upgrade \
-    && apk add --no-cache dumb-init ca-certificates \
-    && addgroup -g 1000 appuser \
-    && adduser -D -u 1000 -G appuser appuser \
-    && chown -R appuser:appuser /app
+WORKDIR /server
 
 # Copy binary and assets
-COPY --from=builder /app/app .
-COPY --from=builder --chown=appuser:appuser /app/static ./static
-
-# Make the binary executable
-RUN chmod +x /app/app
-
-# Switch to non-root user
-USER appuser
+COPY --from=builder /server/server .
+COPY --from=builder /server/static ./static
 
 EXPOSE 8080
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["./app"]
+CMD ["./server"]

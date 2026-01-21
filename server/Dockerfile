@@ -1,34 +1,31 @@
+# DEVELOPMENT DOCKERFILE
+
 FROM ubuntu:noble
+
+ARG TAILWIND_VERSION=v4.1.18
 
 WORKDIR /server
 
-# Install prerequisites
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-
-# Update packages and install dependencies
-RUN add-apt-repository universe
-RUN apt-get update && apt-get upgrade
-
-# Install helpful tools for use inside the container
-RUN apt-get install -y vim tree
-
-# Install Go, Curl (for downloading TailwindCSS), and Watchman (TailwindCSS dependency)
-RUN apt-get install -y curl golang-go watchman
+# Install prerequisites and dependencies
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository universe && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y vim tree curl golang-go watchman && \
+    rm -rf /var/lib/apt/lists/*
 
 # Download Go modules
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Install and configure TailwindCSS CLI v4.1.18
-RUN curl -fL -o tailwind https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-x64
-RUN chmod +x tailwind
-RUN mv tailwind /usr/local/bin/
-RUN mkdir -p ./static/css
-RUN touch ./static/css/style.css
-
-# Start tailwind and templ generator in watch mode
-CMD ["./start.sh"]
+# Install and setup output directory for TailwindCSS CLI
+RUN curl -fL -o /usr/local/bin/tailwind https://github.com/tailwindlabs/tailwindcss/releases/download/${TAILWIND_VERSION}/tailwindcss-linux-x64 && \
+    chmod +x /usr/local/bin/tailwind && \
+    mkdir -p ./static/css && touch ./static/css/style.css
 
 # Default port for templ proxy
 EXPOSE 7331
+
+# Start tailwind and templ generator in watch mode
+CMD ["./start.sh"]
