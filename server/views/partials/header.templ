@@ -1,7 +1,19 @@
 package partials
 
+import "server/views/icons"
+
 templ Header() {
-<header>
-    <p>Event Hub</p>
-</header>
+	<header class="text-blue-900 bg-lime-200">
+		<div class="flex justify-between items-center min-h-18">
+			<a href="#" class="text-4xl font-bold mx-4 my-2">&lambda;&gt;</a>
+			<a href="#" class="mx-4 my-2">
+				@icons.MenuIcon()
+			</a>
+		</div>
+		<div id="menu" class="hidden mx-4 my-2">
+			<a href="#">Home</a>
+			<a href="#">Search</a>
+			<a href="#">Login</a>
+		</div>
+	</header>
 }
