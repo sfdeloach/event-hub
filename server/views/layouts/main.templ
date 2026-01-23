@@ -14,15 +14,15 @@ templ MainLayout() {
 			<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png"/>
 			<link rel="manifest" href="/static/site.webmanifest"/>
 			<link href="/static/css/style.css" rel="stylesheet"/>
+			<script src="/static/js/htmx-2.0.8.min.js" defer></script>
+			<script src="/static/js/alpinejs-3.15.4.min.js" defer></script>
 		</head>
-		<body hx-boost="true" class="flex flex-col min-h-screen">
+		<body class="flex flex-col min-h-screen">
 			@partials.Header()
 			<main class="grow">
 				{ children... }
 			</main>
 			@partials.Footer()
-			<script src="/static/js/htmx-2.0.8.min.js" defer></script>
-			<script src="/static/js/alpinejs-3.15.4.min.js" defer></script>
 		</body>
 	</html>
 }
