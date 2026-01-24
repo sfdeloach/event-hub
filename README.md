@@ -33,8 +33,9 @@
 - 🚧 Models
   - Users
   - Events
-    - gorm.Model
-    - ValidAt & ExpiresAt
+    - gorm.Model (ID, CreatedAt, UpdatedAt, DeletedAt)
+    - OnAirAt
+    - OffAirAt
     - Title
     - Date
     - Time (purposely kept separate?)

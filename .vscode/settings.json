@@ -2,13 +2,15 @@
   "cSpell.words": [
     "alpinejs",
     "appuser",
+    "fieldset",
     "htmx",
     "libcrypto",
     "libgcc",
     "libstdc",
     "proxybind",
     "stylesheet",
-    "templ"
+    "templ",
+    "webp"
   ],
   "css.lint.unknownAtRules": "ignore",
   "editor.formatOnSave": true,

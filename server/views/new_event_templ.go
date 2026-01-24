@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "server/views/layouts"
 
-func EventsContent() templ.Component {
+func NewEventContent() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -31,7 +31,7 @@ func EventsContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1 class=\"text-5xl font-bold text-lime-600\">Welcome to the events route...</h1>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<fieldset class=\"backdrop-blur-xl rounded-md backdrop-brightness-125\"><legend class=\"text-2xl font-bold text-blue-900 text-center\">Create New Event</legend><form method=\"post\" class=\"flex flex-col p-2 gap-2\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"title\">Title:</label> <input id=\"title\" name=\"title\" type=\"text\"> <label for=\"date\">Date:</label> <input id=\"date\" name=\"date\" type=\"date\"> <label for=\"time\">Time:</label> <input id=\"time\" name=\"time\" type=\"time\"> <label for=\"description\">Description:</label> <textarea id=\"description\" name=\"description\" rows=\"5\"></textarea> <button class=\"bg-lime-300 border border-lime-400 rounded-md p-2\" type=\"submit\">Create</button></form></fieldset>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -39,7 +39,7 @@ func EventsContent() templ.Component {
 	})
 }
 
-func Events() templ.Component {
+func NewEvent() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -72,7 +72,7 @@ func Events() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = EventsContent().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = NewEventContent().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

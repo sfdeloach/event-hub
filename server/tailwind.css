@@ -4,3 +4,11 @@
 
 @import "tailwindcss";
 @source "./views";
+
+@layer base {
+  input,
+  textarea,
+  select {
+    @apply rounded-md border border-zinc-400 bg-white p-2;
+  }
+}

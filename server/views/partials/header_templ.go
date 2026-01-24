@@ -39,7 +39,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></div><nav id=\"menu\" class=\"min-w-screen bg-lime-100 py-8\" x-show=\"open\" x-transition><ul hx-target=\"#main\" hx-push-url=\"true\" @click=\"open = false\" class=\"flex flex-col items-center gap-8 text-xl\"><li><a hx-get=\"/\" href=\"/\">Home</a></li><li><a hx-get=\"/events\" href=\"/events\">Events</a></li><li><a hx-get=\"/edit\" href=\"/edit\">Edit</a></li><li><a hx-get=\"/login\" href=\"/login\">Login</a></li></ul></nav></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></div><nav id=\"menu\" class=\"min-w-screen bg-lime-100 py-8\" x-show=\"open\" x-transition><ul hx-target=\"main\" hx-push-url=\"true\" @click=\"open = false\" class=\"flex flex-col items-center gap-8 text-xl\"><li><a hx-get=\"/\" href=\"/\">Home</a></li><li><a hx-get=\"/events\" href=\"/events\">Events</a></li><li><a hx-get=\"/events/new\" href=\"/events/new\">New</a></li><li><a hx-get=\"/login\" href=\"/login\">Login</a></li></ul></nav></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
