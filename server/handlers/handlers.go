@@ -25,10 +25,18 @@ func Events(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func NewEvent(w http.ResponseWriter, r *http.Request) {
+func CreateEvent(w http.ResponseWriter, r *http.Request) {
 	if isHtmxRequest(r) {
-		views.NewEventContent().Render(r.Context(), w)
+		views.CreateEventContent().Render(r.Context(), w)
 	} else {
-		views.NewEvent().Render(r.Context(), w)
+		views.CreateEvent().Render(r.Context(), w)
+	}
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	if isHtmxRequest(r) {
+		views.LoginContent().Render(r.Context(), w)
+	} else {
+		views.Login().Render(r.Context(), w)
 	}
 }

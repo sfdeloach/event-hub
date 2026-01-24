@@ -1,0 +1,56 @@
+package views
+
+import "server/views/layouts"
+
+type EventCategory struct {
+	ID       int
+	Category string
+}
+
+var categories = []EventCategory{
+	{ID: 1, Category: "Music"},
+	{ID: 2, Category: "Art"},
+	{ID: 3, Category: "Technology"},
+	{ID: 4, Category: "Sports"},
+	{ID: 5, Category: "Education"},
+	{ID: 6, Category: "Health"},
+	{ID: 7, Category: "Business"},
+	{ID: 8, Category: "Entertainment"},
+}
+
+// for htmx requests
+templ CreateEventContent() {
+	<div class="glass-panel">
+		<h1 class="text-center">Create New Event</h1>
+		<form method="post">
+			<label for="on_air_at">On air:</label>
+			<input id="on_air_at" name="on_air_at" type="datetime-local"/>
+			<label for="off_air_at">Off air:</label>
+			<input id="off_air_at" name="off_air_at" type="datetime-local"/>
+			<label for="category">Categories:</label>
+			<select id="category" name="category">
+				for _, category := range categories {
+					<option value={ category.ID }>{ category.Category }</option>
+				}
+			</select>
+			<label for="title">Title:</label>
+			<input id="title" name="title" type="text"/>
+			<label for="date">Date:</label>
+			<input id="date" name="date" type="date"/>
+			<label for="time">Time:</label>
+			<input id="time" name="time" type="time"/>
+			<label for="location">Location:</label>
+			<input id="location" name="location" type="text"/>
+			<label for="description">Description:</label>
+			<textarea id="description" name="description" rows="5"></textarea>
+			<button hx-post="/events" type="submit">Create</button>
+		</form>
+	</div>
+}
+
+// for full page requests
+templ CreateEvent() {
+	@layouts.MainLayout() {
+		@CreateEventContent()
+	}
+}

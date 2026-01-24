@@ -31,9 +31,9 @@ templ MainLayout() {
 			<script src="/static/js/htmx-2.0.8.min.js" defer></script>
 			<script src="/static/js/alpinejs-3.15.4.min.js" defer></script>
 		</head>
-		<body class="flex min-h-screen flex-col">
+		<body>
 			@partials.Header()
-			<main class="grow py-6 px-1 bg-[url(/static/main.webp)] bg-cover bg-center bg-fixed">
+			<main>
 				{ children... }
 			</main>
 			@partials.Footer()

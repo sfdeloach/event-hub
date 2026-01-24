@@ -31,7 +31,7 @@ func Header() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header class=\"bg-lime-200 text-blue-900\" x-data=\"{ open: false }\"><div class=\"flex min-h-18 items-center justify-between\"><a href=\"/\" class=\"mx-4 my-2 text-4xl font-bold\">&lambda;&gt;</a> <button class=\"mx-4 my-2 cursor-pointer\" x-on:click=\"open = !open\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"contents\" hx-target=\"main\" hx-push-url=\"true\" x-data=\"{ open: false, path: window.location.pathname }\" x-init=\"open = window.innerWidth >= 768;\n\t\t        window.addEventListener('resize', () => open = window.innerWidth >= 768);\"><header class=\"bg-lime-200 text-blue-900 flex min-h-18 items-center justify-between\"><a hx-get=\"/\" href=\"/\" class=\"mx-4 text-4xl font-bold\">&lambda;&gt;</a> <button class=\"mx-4 cursor-pointer border-none md:hidden\" x-on:click=\"open = !open\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -39,7 +39,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></div><nav id=\"menu\" class=\"min-w-screen bg-lime-100 py-8\" x-show=\"open\" x-transition><ul hx-target=\"main\" hx-push-url=\"true\" @click=\"open = false\" class=\"flex flex-col items-center gap-8 text-xl\"><li><a hx-get=\"/\" href=\"/\">Home</a></li><li><a hx-get=\"/events\" href=\"/events\">Events</a></li><li><a hx-get=\"/events/new\" href=\"/events/new\">New</a></li><li><a hx-get=\"/login\" href=\"/login\">Login</a></li></ul></nav></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></header><nav class=\"sticky top-0 z-10 min-w-screen bg-lime-100 py-8 md:py-2 md:px-8\" :class=\"{ 'bg-white transition duration-500': top === 0 }\" id=\"menu\" x-data=\"{ top: $el.getBoundingClientRect().top }\" x-show=\"open\" x-transition x-init=\"window.addEventListener('scroll', () => top = $el.getBoundingClientRect().top);\"><ul class=\"flex flex-col items-center gap-8 text-xl md:flex-row md:justify-end md:gap-4\" x-on:click=\"if (window.innerWidth < 768) open = false\"><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/home' }\" hx-get=\"/home\" href=\"/home\" x-on:click=\"path = '/home'\">Home</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/events' }\" hx-get=\"/events\" href=\"/events\" x-on:click=\"path = '/events'\">Events</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/events/create' }\" hx-get=\"/events/create\" href=\"/events/create\" x-on:click=\"path = '/events/create'\">Create</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/login' }\" hx-get=\"/login\" href=\"/login\" x-on:click=\"path = '/login'\">Login</a></li></ul></nav></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

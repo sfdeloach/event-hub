@@ -3,15 +3,15 @@ package views
 import "server/views/layouts"
 
 // for htmx requests
-templ EventsContent() {
+templ LoginContent() {
 	<h1>
-		Welcome to the events route...
+		Welcome to the login route...
 	</h1>
 }
 
 // for full page requests
-templ Events() {
+templ Login() {
 	@layouts.MainLayout() {
-		@EventsContent()
+		@LoginContent()
 	}
 }

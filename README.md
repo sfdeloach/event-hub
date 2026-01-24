@@ -7,20 +7,14 @@
 - ✅ Live reloads in development
 - ✅ Docker development containers
 - ✅ Alpine.js
-- 🚧 Htmx - installed, not used yet
-- 🚧 Tailwind CSS
-- 🚧 Session-based Auth stored in Redis
+- ✅ Htmx - installed, not used yet
+- ✅ Tailwind CSS
+- 🚧 Create New Category Form
+- 🚧 Add database to network
 - 🚧 GORM
-
-### setup
-
-#### Tailwind CSS
-
- - Download [v.1.18](https://github.com/tailwindlabs/tailwindcss/releases/download/v4.1.18/tailwindcss-linux-x64) to `/server`
-   - **OPTIONAL:** Download [watchman-bin](https://aur.archlinux.org/packages/watchman-bin) but it works without it.
- - Rename to `tailwindcss-4.1.18` and make executable with `chmod +x`
- - **TODO:** Develop `up.sh` and `dn.sh` scripts to start Tailwind and Docker Compose
-   - `./tailwindcss-4.1.18 -i ./static/css/input.css -o ./static/css/output.css --watch`
+- 🚧 CRUD Ops for Category Table
+- 🚧 CRUD Ops for Event Table
+- 🚧 Session-based Auth stored in Redis
 
 ### resources
 
@@ -39,12 +33,10 @@
     - Title
     - Date
     - Time (purposely kept separate?)
-    - Description
-    - Foreign Key for Link(s)
-  - Links
+    - Description (accepts limited html tags <a> <em> <strong>)
+  - Event Categories
     - gorm.Model
-    - Href
-    - Display
+    - Category
 
 ## cache
 

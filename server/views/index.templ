@@ -2,12 +2,14 @@ package views
 
 import "server/views/layouts"
 
+// for htmx requests
 templ IndexContent() {
-	<h1 class="text-5xl font-bold text-lime-600">
+	<h1>
 		Welcome to the index route...
 	</h1>
 }
 
+// for full page requests
 templ Index() {
 	@layouts.MainLayout() {
 		@IndexContent()
