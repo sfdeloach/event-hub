@@ -3,31 +3,36 @@ package partials
 import "server/views/icons"
 
 templ Header() {
-	<header class="text-blue-900 bg-lime-200" x-data="{ open: false }">
-		<div class="flex justify-between items-center min-h-18">
-			<a href="/" class="text-4xl font-bold mx-4 my-2">&lambda;&gt;</a>
-			<button class="cursor-pointer mx-4 my-2" x-on:click="open = !open">
+	<header class="bg-lime-200 text-blue-900" x-data="{ open: false }">
+		<div class="flex min-h-18 items-center justify-between">
+			<a href="/" class="mx-4 my-2 text-4xl font-bold">&lambda;&gt;</a>
+			<button class="mx-4 my-2 cursor-pointer" x-on:click="open = !open">
 				@icons.MenuIcon()
 			</button>
 		</div>
 		<nav
 			id="menu"
-			class="bg-lime-100 min-w-screen py-8"
+			class="min-w-screen bg-lime-100 py-8"
 			x-show="open"
 			x-transition
 		>
-			<ul class="flex flex-col items-center gap-8 text-xl">
+			<ul
+				hx-target="#main"
+				hx-push-url="true"
+				@click="open = false"
+				class="flex flex-col items-center gap-8 text-xl"
+			>
 				<li>
-					<a href="/">Home</a>
+					<a hx-get="/" href="/">Home</a>
 				</li>
 				<li>
-					<a href="#">Events</a>
+					<a hx-get="/events" href="/events">Events</a>
 				</li>
 				<li>
-					<a href="#">Edit</a>
+					<a hx-get="/edit" href="/edit">Edit</a>
 				</li>
 				<li>
-					<a href="#">Login</a>
+					<a hx-get="/login" href="/login">Login</a>
 				</li>
 			</ul>
 		</nav>

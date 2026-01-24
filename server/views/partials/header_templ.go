@@ -31,7 +31,7 @@ func Header() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header class=\"text-blue-900 bg-lime-200\" x-data=\"{ open: false }\"><div class=\"flex justify-between items-center min-h-18\"><a href=\"/\" class=\"text-4xl font-bold mx-4 my-2\">&lambda;&gt;</a> <button class=\"cursor-pointer mx-4 my-2\" x-on:click=\"open = !open\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<header class=\"bg-lime-200 text-blue-900\" x-data=\"{ open: false }\"><div class=\"flex min-h-18 items-center justify-between\"><a href=\"/\" class=\"mx-4 my-2 text-4xl font-bold\">&lambda;&gt;</a> <button class=\"mx-4 my-2 cursor-pointer\" x-on:click=\"open = !open\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -39,7 +39,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></div><nav id=\"menu\" class=\"bg-lime-100 min-w-screen py-8\" x-show=\"open\" x-transition><ul class=\"flex flex-col items-center gap-8 text-xl\"><li><a href=\"/\">Home</a></li><li><a href=\"#\">Events</a></li><li><a href=\"#\">Edit</a></li><li><a href=\"#\">Login</a></li></ul></nav></header>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></div><nav id=\"menu\" class=\"min-w-screen bg-lime-100 py-8\" x-show=\"open\" x-transition><ul hx-target=\"#main\" hx-push-url=\"true\" @click=\"open = false\" class=\"flex flex-col items-center gap-8 text-xl\"><li><a hx-get=\"/\" href=\"/\">Home</a></li><li><a hx-get=\"/events\" href=\"/events\">Events</a></li><li><a hx-get=\"/edit\" href=\"/edit\">Edit</a></li><li><a hx-get=\"/login\" href=\"/login\">Login</a></li></ul></nav></header>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

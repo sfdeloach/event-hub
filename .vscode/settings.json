@@ -10,5 +10,11 @@
     "stylesheet",
     "templ"
   ],
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "editor.formatOnSave": true,
+  "tailwindCSS.includeLanguages": { "templ": "html" },
+  "prettier.documentSelectors": ["**/*.templ"],
+  "[templ]": {
+    "editor.defaultFormatter": "a-h.templ"
+  }
 }

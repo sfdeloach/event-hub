@@ -2,16 +2,16 @@ package views
 
 import "server/views/layouts"
 
-templ IndexContent() {
+templ EventsContent() {
 	<div class="mx-1 mt-8">
 		<h1 class="text-5xl font-bold text-lime-600">
-			Welcome to the index route...
+			Welcome to the events route...
 		</h1>
 	</div>
 }
 
-templ Index() {
+templ Events() {
 	@layouts.MainLayout() {
-		@IndexContent()
+		@EventsContent()
 	}
 }
