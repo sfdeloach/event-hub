@@ -32,7 +32,7 @@ func EventsContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1>Welcome to the events route...</h1>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"single-column-sidebar\"><ul class=\"sidebar-nav\" hx-target=\"main\" hx-push-url=\"true\"><li class=\"btn-link\"><a href=\"/events/create\" hx-get=\"/events/create\">Create New Event</a></li><li class=\"btn-link\"><a href=\"/events/categories\" hx-get=\"/events/categories\">Manage Categories</a></li></ul><div class=\"single-column-content\"><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div><div class=\"event-card\">Events eventually appear here!</div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -8,6 +8,7 @@
     "libgcc",
     "libstdc",
     "proxybind",
+    "Sprintf",
     "stylesheet",
     "templ",
     "webp"

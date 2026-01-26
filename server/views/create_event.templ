@@ -27,7 +27,7 @@ templ CreateEventContent() {
 			<input id="on_air_at" name="on_air_at" type="datetime-local"/>
 			<label for="off_air_at">Off air:</label>
 			<input id="off_air_at" name="off_air_at" type="datetime-local"/>
-			<label for="category">Categories:</label>
+			<label for="category">Category:</label>
 			<select id="category" name="category">
 				for _, category := range categories {
 					<option value={ category.ID }>{ category.Category }</option>

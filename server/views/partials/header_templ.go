@@ -8,9 +8,12 @@ package partials
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "server/views/icons"
+import (
+	"fmt"
+	"server/views/icons"
+)
 
-func Header() templ.Component {
+func navLink(path, label string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -31,7 +34,101 @@ func Header() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"contents\" hx-target=\"main\" hx-push-url=\"true\" x-data=\"{ open: false, path: window.location.pathname }\" x-init=\"open = window.innerWidth >= 768;\n\t\t        window.addEventListener('resize', () => open = window.innerWidth >= 768);\"><header class=\"bg-lime-200 text-blue-900 flex min-h-18 items-center justify-between\"><a hx-get=\"/\" href=\"/\" class=\"mx-4 text-4xl font-bold\">&lambda;&gt;</a> <button class=\"mx-4 cursor-pointer border-none md:hidden\" x-on:click=\"open = !open\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<li><a class=\"hover:opacity-60 transition-colors duration-250\" href=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var2 templ.SafeURL
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(path))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/header.templ`, Line: 12, Col: 29}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "\" hx-get=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(path)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/header.templ`, Line: 13, Col: 16}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\" x-bind:class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("{ 'text-blue-800': path === '%s' }", path))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/header.templ`, Line: 14, Col: 73}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" x-on:click=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("path = '%s'", path))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/header.templ`, Line: 15, Col: 48}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 string
+		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(label)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/header.templ`, Line: 17, Col: 10}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "</a></li>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+func Header() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var7 == nil {
+			templ_7745c5c3_Var7 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"contents\" hx-target=\"main\" hx-push-url=\"true\" x-data=\"{ isOpen: false, path: window.location.pathname, breakpoint: 768 }\" x-on:popstate.window=\"path = window.location.pathname;\" x-on:resize.window=\"isOpen = breakpoint <= window.innerWidth\" x-init=\"isOpen = breakpoint <= window.innerWidth;\"><header class=\"bg-lime-200 text-blue-900 flex min-h-18 items-center justify-between\"><a class=\"ml-4 text-4xl font-bold lg:ml-16 xl:ml-32\" href=\"/home\" hx-get=\"/home\">&lambda;&gt;</a> <button class=\"mx-4 cursor-pointer border-none md:hidden\" x-on:click=\"isOpen = !isOpen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -39,7 +136,23 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button></header><nav class=\"sticky top-0 z-10 min-w-screen bg-lime-100 py-8 md:py-2 md:px-8\" :class=\"{ 'bg-white transition duration-500': top === 0 }\" id=\"menu\" x-data=\"{ top: $el.getBoundingClientRect().top }\" x-show=\"open\" x-transition x-init=\"window.addEventListener('scroll', () => top = $el.getBoundingClientRect().top);\"><ul class=\"flex flex-col items-center gap-8 text-xl md:flex-row md:justify-end md:gap-4\" x-on:click=\"if (window.innerWidth < 768) open = false\"><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/home' }\" hx-get=\"/home\" href=\"/home\" x-on:click=\"path = '/home'\">Home</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/events' }\" hx-get=\"/events\" href=\"/events\" x-on:click=\"path = '/events'\">Events</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/events/create' }\" hx-get=\"/events/create\" href=\"/events/create\" x-on:click=\"path = '/events/create'\">Create</a></li><li><a class=\"hover:opacity-60 transition-all\" :class=\"{ 'text-blue-600': path === '/login' }\" hx-get=\"/login\" href=\"/login\" x-on:click=\"path = '/login'\">Login</a></li></ul></nav></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</button></header><nav class=\"sticky top-0 z-10 bg-lime-100 py-8 md:py-2 md:pr-8 lg:pr-16 xl:pr-32\" x-bind:class=\"top === 0 && 'bg-transparent backdrop-blur-xl transition-colors duration-500'\" x-data=\"{ top: $el.getBoundingClientRect().top }\" x-on:scroll.window=\"top = $el.getBoundingClientRect().top\" x-show=\"isOpen\" x-transition><ul class=\"flex flex-col items-center gap-8 text-xl md:flex-row md:justify-end md:gap-4 lg:gap-8 xl:gap-16\" x-on:click=\"if (window.innerWidth < breakpoint) { isOpen = false; }\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = navLink("/home", "Home").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = navLink("/events", "Events").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = navLink("/login", "Login").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</ul></nav></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

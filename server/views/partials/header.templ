@@ -1,73 +1,66 @@
 package partials
 
-import "server/views/icons"
+import (
+	"fmt"
+	"server/views/icons"
+)
+
+templ navLink(path, label string) {
+	<li>
+		<a
+			class="hover:opacity-60 transition-colors duration-250"
+			href={ templ.SafeURL(path) }
+			hx-get={ path }
+			x-bind:class={ fmt.Sprintf("{ 'text-blue-800': path === '%s' }", path) }
+			x-on:click={ fmt.Sprintf("path = '%s'", path) }
+		>
+			{ label }
+		</a>
+	</li>
+}
 
 templ Header() {
 	<div
 		class="contents"
 		hx-target="main"
 		hx-push-url="true"
-		x-data="{ open: false, path: window.location.pathname }"
-		x-init="open = window.innerWidth >= 768;
-		        window.addEventListener('resize', () => open = window.innerWidth >= 768);"
+		x-data="{ isOpen: false, path: window.location.pathname, breakpoint: 768 }"
+		x-on:popstate.window="path = window.location.pathname;"
+		x-on:resize.window="isOpen = breakpoint <= window.innerWidth"
+		x-init="isOpen = breakpoint <= window.innerWidth;"
 	>
 		<header
 			class="bg-lime-200 text-blue-900 flex min-h-18 items-center justify-between"
 		>
-			<a hx-get="/" href="/" class="mx-4 text-4xl font-bold">&lambda;&gt;</a>
-			<button class="mx-4 cursor-pointer border-none md:hidden" x-on:click="open = !open">
+			<a
+				class="ml-4 text-4xl font-bold lg:ml-16 xl:ml-32"
+				href="/home"
+				hx-get="/home"
+			>
+				&lambda;&gt;
+			</a>
+			<button
+				class="mx-4 cursor-pointer border-none md:hidden"
+				x-on:click="isOpen = !isOpen"
+			>
 				@icons.MenuIcon()
 			</button>
 		</header>
 		<nav
-			class="sticky top-0 z-10 min-w-screen bg-lime-100 py-8 md:py-2 md:px-8"
-			:class="{ 'bg-white transition duration-500': top === 0 }"
-			id="menu"
+			class="sticky top-0 z-10 bg-lime-100 py-8 md:py-2 md:pr-8 lg:pr-16 xl:pr-32"
+			x-bind:class="top === 0 && 'bg-transparent backdrop-blur-xl transition-colors duration-500'"
 			x-data="{ top: $el.getBoundingClientRect().top }"
-			x-show="open"
+			x-on:scroll.window="top = $el.getBoundingClientRect().top"
+			x-show="isOpen"
 			x-transition
-			x-init="window.addEventListener('scroll', () => top = $el.getBoundingClientRect().top);"
 		>
 			<ul
-				class="flex flex-col items-center gap-8 text-xl md:flex-row md:justify-end md:gap-4"
-				x-on:click="if (window.innerWidth < 768) open = false"
+				class="flex flex-col items-center gap-8 text-xl md:flex-row md:justify-end md:gap-4 lg:gap-8 xl:gap-16"
+				x-on:click="if (window.innerWidth < breakpoint) { isOpen = false; }"
 			>
-				<li>
-					<a
-						class="hover:opacity-60 transition-all"
-						:class="{ 'text-blue-600': path === '/home' }"
-						hx-get="/home"
-						href="/home"
-						x-on:click="path = '/home'"
-					>Home</a>
-				</li>
-				<li>
-					<a
-						class="hover:opacity-60 transition-all"
-						:class="{ 'text-blue-600': path === '/events' }"
-						hx-get="/events"
-						href="/events"
-						x-on:click="path = '/events'"
-					>Events</a>
-				</li>
-				<li>
-					<a
-						class="hover:opacity-60 transition-all"
-						:class="{ 'text-blue-600': path === '/events/create' }"
-						hx-get="/events/create"
-						href="/events/create"
-						x-on:click="path = '/events/create'"
-					>Create</a>
-				</li>
-				<li>
-					<a
-						class="hover:opacity-60 transition-all"
-						:class="{ 'text-blue-600': path === '/login' }"
-						hx-get="/login"
-						href="/login"
-						x-on:click="path = '/login'"
-					>Login</a>
-				</li>
+				@navLink("/home", "Home")
+				@navLink("/events", "Events")
+				@navLink("/login", "Login")
 			</ul>
 		</nav>
 	</div>

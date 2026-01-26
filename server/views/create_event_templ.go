@@ -48,7 +48,7 @@ func CreateEventContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h1 class=\"text-center\">Create New Event</h1><form method=\"post\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Categories:</label> <select id=\"category\" name=\"category\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h1 class=\"text-center\">Create New Event</h1><form method=\"post\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -30,6 +30,7 @@
     - gorm.Model (ID, CreatedAt, UpdatedAt, DeletedAt)
     - OnAirAt
     - OffAirAt
+    - Category (foreign key)
     - Title
     - Date
     - Time (purposely kept separate?)

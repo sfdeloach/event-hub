@@ -9,10 +9,27 @@
   /* containers ***********************/
   body {
     @apply flex min-h-screen flex-col;
+    @apply bg-[url(/static/main.webp)] bg-cover bg-fixed bg-center;
   }
 
   main {
-    @apply grow bg-[url(/static/main.webp)] bg-cover bg-fixed bg-center p-2;
+    @apply grow p-2;
+  }
+
+  .single-column-sidebar {
+    @apply flex flex-col gap-4 md:contents md:flex-row;
+  }
+
+  .sidebar-nav {
+    @apply flex-col items-center md:sticky md:top-50 md:z-10 md:w-60 md:border-r md:border-zinc-400 md:pr-4;
+  }
+
+  .single-column-content {
+    @apply md:grow;
+  }
+
+  .event-card {
+    @apply mb-4 min-h-60 rounded-md bg-white/75 p-4 shadow-md md:ml-60;
   }
 
   .glass-panel {
@@ -41,6 +58,14 @@
 
   /* buttons **************************/
   button {
-    @apply rounded-md border border-lime-300 bg-lime-200 p-4 font-medium text-blue-900 hover:bg-lime-400;
+    @apply rounded-md border border-lime-300 bg-lime-200 p-4 font-medium text-blue-900 hover:bg-lime-300;
+  }
+
+  .btn-link {
+    @apply my-2 p-2 text-blue-800 hover:text-blue-600;
+  }
+
+  .btn-link::before {
+    content: "> ";
   }
 }
