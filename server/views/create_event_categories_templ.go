@@ -14,7 +14,7 @@ import (
 )
 
 // for htmx requests
-func EventsContent() templ.Component {
+func CreateEventCategoryContent() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -35,11 +35,7 @@ func EventsContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = partials.PageHeader("Events", "").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h2>Manage Events (admin panel)</h2><ul hx-target=\"main\" hx-push-url=\"true\"><li class=\"btn-link\"><a href=\"/events/create\" hx-get=\"/events/create\">Create New Event</a></li><li class=\"btn-link\"><a href=\"/events/categories\" hx-get=\"/events/categories\">Manage Categories</a></li></ul></div><div class=\"glass-panel flex justify-center\"><input class=\"flex w-full mt-2\" hx-get=\"/events\" hx-indicator=\".htmx-indicator\" hx-target=\"#events-list\" name=\"search\" placeholder=\"🔍 Search events...\" type=\"search\"></div><div id=\"events-list\"><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div></div>")
+		templ_7745c5c3_Err = partials.PageHeader("Create Event Category", "/events/categories").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -48,7 +44,7 @@ func EventsContent() templ.Component {
 }
 
 // for full page requests
-func Events() templ.Component {
+func CreateEventCategory() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -81,7 +77,7 @@ func Events() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = EventsContent().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = CreateEventCategoryContent().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

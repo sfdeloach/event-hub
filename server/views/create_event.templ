@@ -1,6 +1,9 @@
 package views
 
-import "server/views/layouts"
+import (
+	"server/views/layouts"
+	"server/views/partials"
+)
 
 type EventCategory struct {
 	ID       int
@@ -20,8 +23,8 @@ var categories = []EventCategory{
 
 // for htmx requests
 templ CreateEventContent() {
+	@partials.PageHeader("Create Event", "/events")
 	<div class="glass-panel">
-		<h1 class="text-center">Create New Event</h1>
 		<form method="post">
 			<label for="on_air_at">On air:</label>
 			<input id="on_air_at" name="on_air_at" type="datetime-local"/>

@@ -1,12 +1,16 @@
 package views
 
-import "server/views/layouts"
+import (
+	"server/views/layouts"
+	"server/views/partials"
+)
 
 // for htmx requests
 templ EventsContent() {
-	<div class="single-column-sidebar">
+	@partials.PageHeader("Events", "")
+	<div class="glass-panel">
+		<h2>Manage Events (admin panel)</h2>
 		<ul
-			class="sidebar-nav"
 			hx-target="main"
 			hx-push-url="true"
 		>
@@ -27,18 +31,30 @@ templ EventsContent() {
 				</a>
 			</li>
 		</ul>
-		<div class="single-column-content">
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-			<div class="event-card">Events eventually appear here!</div>
-		</div>
+	</div>
+	<div class="glass-panel flex justify-center">
+		// hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+		<input
+			class="flex w-full mt-2"
+			hx-get="/events"
+			hx-indicator=".htmx-indicator"
+			hx-target="#events-list"
+			name="search"
+			placeholder="🔍 Search events..."
+			type="search"
+		/>
+	</div>
+	<div id="events-list">
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
+		<div class="glass-panel">Events eventually appear here!</div>
 	</div>
 }
 

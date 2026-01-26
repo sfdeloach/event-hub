@@ -1,0 +1,18 @@
+package views
+
+import (
+	"server/views/layouts"
+	"server/views/partials"
+)
+
+// for htmx requests
+templ CreateEventCategoryContent() {
+	@partials.PageHeader("Create Event Category", "/events/categories")
+}
+
+// for full page requests
+templ CreateEventCategory() {
+	@layouts.MainLayout() {
+		@CreateEventCategoryContent()
+	}
+}

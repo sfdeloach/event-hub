@@ -8,7 +8,10 @@ package views
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "server/views/layouts"
+import (
+	"server/views/layouts"
+	"server/views/partials"
+)
 
 type EventCategory struct {
 	ID       int
@@ -48,7 +51,11 @@ func CreateEventContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h1 class=\"text-center\">Create New Event</h1><form method=\"post\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
+		templ_7745c5c3_Err = partials.PageHeader("Create Event", "/events").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form method=\"post\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -60,7 +67,7 @@ func CreateEventContent() templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(category.ID)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 33, Col: 32}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 36, Col: 32}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -73,7 +80,7 @@ func CreateEventContent() templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(category.Category)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 33, Col: 54}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 36, Col: 54}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

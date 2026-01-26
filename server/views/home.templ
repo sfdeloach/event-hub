@@ -3,15 +3,15 @@ package views
 import "server/views/layouts"
 
 // for htmx requests
-templ IndexContent() {
+templ HomeContent() {
 	<h1>
 		Welcome to the home route...
 	</h1>
 }
 
 // for full page requests
-templ Index() {
+templ Home() {
 	@layouts.MainLayout() {
-		@IndexContent()
+		@HomeContent()
 	}
 }

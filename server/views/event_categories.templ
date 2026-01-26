@@ -1,0 +1,34 @@
+package views
+
+import (
+	"server/views/layouts"
+	"server/views/partials"
+)
+
+// for htmx requests
+templ EventCategoriesContent() {
+	@partials.PageHeader("Event Categories", "/events")
+	<div class="glass-panel">
+		<h2>Manage Categories</h2>
+		<ul
+			hx-target="main"
+			hx-push-url="true"
+		>
+			<li class="btn-link">
+				<a
+					href="/events/categories/create"
+					hx-get="/events/categories/create"
+				>
+					Create New Event Category
+				</a>
+			</li>
+		</ul>
+	</div>
+}
+
+// for full page requests
+templ EventCategories() {
+	@layouts.MainLayout() {
+		@EventCategoriesContent()
+	}
+}

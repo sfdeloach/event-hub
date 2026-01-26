@@ -9,11 +9,11 @@ func isHtmxRequest(r *http.Request) bool {
 	return r.Header.Get("HX-Request") == "true"
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func Home(w http.ResponseWriter, r *http.Request) {
 	if isHtmxRequest(r) {
-		views.IndexContent().Render(r.Context(), w)
+		views.HomeContent().Render(r.Context(), w)
 	} else {
-		views.Index().Render(r.Context(), w)
+		views.Home().Render(r.Context(), w)
 	}
 }
 
@@ -30,6 +30,22 @@ func CreateEvent(w http.ResponseWriter, r *http.Request) {
 		views.CreateEventContent().Render(r.Context(), w)
 	} else {
 		views.CreateEvent().Render(r.Context(), w)
+	}
+}
+
+func EventCategories(w http.ResponseWriter, r *http.Request) {
+	if isHtmxRequest(r) {
+		views.EventCategoriesContent().Render(r.Context(), w)
+	} else {
+		views.EventCategories().Render(r.Context(), w)
+	}
+}
+
+func CreateEventCategory(w http.ResponseWriter, r *http.Request) {
+	if isHtmxRequest(r) {
+		views.CreateEventCategoryContent().Render(r.Context(), w)
+	} else {
+		views.CreateEventCategory().Render(r.Context(), w)
 	}
 }
 
