@@ -9,28 +9,14 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"fmt"
+	"server/models"
 	"server/views/layouts"
 	"server/views/partials"
 )
 
-type EventCategory struct {
-	ID       int
-	Category string
-}
-
-var categories = []EventCategory{
-	{ID: 1, Category: "Music"},
-	{ID: 2, Category: "Art"},
-	{ID: 3, Category: "Technology"},
-	{ID: 4, Category: "Sports"},
-	{ID: 5, Category: "Education"},
-	{ID: 6, Category: "Health"},
-	{ID: 7, Category: "Business"},
-	{ID: 8, Category: "Entertainment"},
-}
-
 // for htmx requests
-func CreateEventContent() templ.Component {
+func CreateEventContent(categories []models.EventCategory) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -51,11 +37,11 @@ func CreateEventContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = partials.PageHeader("Create Event", "/events").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.TopBanner("Create Event", "/events").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form method=\"post\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form action=\"/events/create\" hx-post=\"/events/create\" hx-target=\"main\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -65,9 +51,9 @@ func CreateEventContent() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(category.ID)
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(category.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 36, Col: 32}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 22, Col: 44}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -80,7 +66,7 @@ func CreateEventContent() templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(category.Category)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 36, Col: 54}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 22, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -91,7 +77,7 @@ func CreateEventContent() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <label for=\"title\">Title:</label> <input id=\"title\" name=\"title\" type=\"text\"> <label for=\"date\">Date:</label> <input id=\"date\" name=\"date\" type=\"date\"> <label for=\"time\">Time:</label> <input id=\"time\" name=\"time\" type=\"time\"> <label for=\"location\">Location:</label> <input id=\"location\" name=\"location\" type=\"text\"> <label for=\"description\">Description:</label> <textarea id=\"description\" name=\"description\" rows=\"5\"></textarea> <button hx-post=\"/events\" type=\"submit\">Create</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <label for=\"title\">Title:</label> <input id=\"title\" name=\"title\" type=\"text\"> <label for=\"date\">Date:</label> <input id=\"date\" name=\"date\" type=\"date\"> <label for=\"time\">Time:</label> <input id=\"time\" name=\"time\" type=\"time\"> <label for=\"location\">Location:</label> <input id=\"location\" name=\"location\" type=\"text\"> <label for=\"description\">Description:</label> <textarea id=\"description\" name=\"description\" rows=\"5\"></textarea> <button type=\"submit\">Create</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -100,7 +86,7 @@ func CreateEventContent() templ.Component {
 }
 
 // for full page requests
-func CreateEvent() templ.Component {
+func CreateEvent(categories []models.EventCategory) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -133,7 +119,7 @@ func CreateEvent() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = CreateEventContent().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = CreateEventContent(categories).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

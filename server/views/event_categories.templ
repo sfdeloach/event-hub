@@ -1,15 +1,16 @@
 package views
 
 import (
+	"server/models"
 	"server/views/layouts"
 	"server/views/partials"
 )
 
 // for htmx requests
-templ EventCategoriesContent() {
-	@partials.PageHeader("Event Categories", "/events")
+templ EventCategoriesContent(categories []models.EventCategory) {
+	@partials.TopBanner("Event Categories", "/events")
 	<div class="glass-panel">
-		<h2>Manage Categories</h2>
+		<h2>Manage Categories (admin panel)</h2>
 		<ul
 			hx-target="main"
 			hx-push-url="true"
@@ -24,11 +25,16 @@ templ EventCategoriesContent() {
 			</li>
 		</ul>
 	</div>
+	<div id="categories-list">
+		for _, category := range categories {
+			<div class="glass-panel">{ category.Category }</div>
+		}
+	</div>
 }
 
 // for full page requests
-templ EventCategories() {
+templ EventCategories(categories []models.EventCategory) {
 	@layouts.MainLayout() {
-		@EventCategoriesContent()
+		@EventCategoriesContent(categories)
 	}
 }

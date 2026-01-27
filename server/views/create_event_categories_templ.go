@@ -35,7 +35,11 @@ func CreateEventCategoryContent() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = partials.PageHeader("Create Event Category", "/events/categories").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.TopBanner("Create Event Category", "/events/categories").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form action=\"/events/categories/create\" hx-post=\"/events/categories/create\" hx-target=\"main\"><label for=\"category\">Category:</label> <input id=\"category\" name=\"category\" type=\"text\" required> <button type=\"submit\">Create</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

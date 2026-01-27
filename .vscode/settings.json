@@ -3,6 +3,7 @@
     "alpinejs",
     "appuser",
     "fieldset",
+    "GORM",
     "htmx",
     "libcrypto",
     "libgcc",

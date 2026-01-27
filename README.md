@@ -11,7 +11,7 @@
 - ✅ Tailwind CSS
 - 🚧 Create New Category Form
 - 🚧 Add database to network
-- 🚧 GORM
+- 🚧 GORM setup
 - 🚧 CRUD Ops for Category Table
 - 🚧 CRUD Ops for Event Table
 - 🚧 Session-based Auth stored in Redis

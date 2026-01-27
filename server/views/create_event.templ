@@ -1,31 +1,17 @@
 package views
 
 import (
+	"fmt"
+	"server/models"
 	"server/views/layouts"
 	"server/views/partials"
 )
 
-type EventCategory struct {
-	ID       int
-	Category string
-}
-
-var categories = []EventCategory{
-	{ID: 1, Category: "Music"},
-	{ID: 2, Category: "Art"},
-	{ID: 3, Category: "Technology"},
-	{ID: 4, Category: "Sports"},
-	{ID: 5, Category: "Education"},
-	{ID: 6, Category: "Health"},
-	{ID: 7, Category: "Business"},
-	{ID: 8, Category: "Entertainment"},
-}
-
 // for htmx requests
-templ CreateEventContent() {
-	@partials.PageHeader("Create Event", "/events")
+templ CreateEventContent(categories []models.EventCategory) {
+	@partials.TopBanner("Create Event", "/events")
 	<div class="glass-panel">
-		<form method="post">
+		<form action="/events/create" hx-post="/events/create" hx-target="main">
 			<label for="on_air_at">On air:</label>
 			<input id="on_air_at" name="on_air_at" type="datetime-local"/>
 			<label for="off_air_at">Off air:</label>
@@ -33,7 +19,7 @@ templ CreateEventContent() {
 			<label for="category">Category:</label>
 			<select id="category" name="category">
 				for _, category := range categories {
-					<option value={ category.ID }>{ category.Category }</option>
+					<option value={ fmt.Sprint(category.ID) }>{ category.Category }</option>
 				}
 			</select>
 			<label for="title">Title:</label>
@@ -46,14 +32,14 @@ templ CreateEventContent() {
 			<input id="location" name="location" type="text"/>
 			<label for="description">Description:</label>
 			<textarea id="description" name="description" rows="5"></textarea>
-			<button hx-post="/events" type="submit">Create</button>
+			<button type="submit">Create</button>
 		</form>
 	</div>
 }
 
 // for full page requests
-templ CreateEvent() {
+templ CreateEvent(categories []models.EventCategory) {
 	@layouts.MainLayout() {
-		@CreateEventContent()
+		@CreateEventContent(categories)
 	}
 }

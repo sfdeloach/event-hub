@@ -2,17 +2,22 @@ package main
 
 import (
 	"net/http"
+	"server/database"
 	"server/handlers"
 )
 
 func main() {
+	db := database.Init()
+	h := &handlers.Handler{DB: db}
+
 	http.Handle("/", http.RedirectHandler("/home", http.StatusFound))
-	http.HandleFunc("/home", handlers.Home)
-	http.HandleFunc("/events", handlers.Events)
-	http.HandleFunc("/events/create", handlers.CreateEvent)
-	http.HandleFunc("/events/categories", handlers.EventCategories)
-	http.HandleFunc("/events/categories/create", handlers.CreateEventCategory)
-	http.HandleFunc("/login", handlers.Login)
+	http.HandleFunc("GET /home", h.Home)
+	http.HandleFunc("GET /events", h.Events)
+	http.HandleFunc("GET /events/create", h.CreateEvent)
+	http.HandleFunc("GET /events/categories", h.EventCategories)
+	http.HandleFunc("GET /events/categories/create", h.CreateEventCategory)
+	http.HandleFunc("POST /events/categories/create", h.PostCreateEventCategory)
+	http.HandleFunc("GET /login", h.Login)
 
 	fs := http.FileServer(http.Dir("static/"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
