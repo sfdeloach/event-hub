@@ -14,9 +14,9 @@ type Event struct {
 	gorm.Model
 	Title           string `gorm:"type:varchar(200);not null"`
 	Description     string `gorm:"type:text"`
-	Location        string `gorm:"type:varchar(200)"`
-	StartsAt        time.Time
-	HasTime         bool
+	When            string `gorm:"type:varchar(200);not null"`
+	Where           string `gorm:"type:varchar(200);not null"`
+	AlwaysVisible   bool
 	OnAir           time.Time
 	OffAir          time.Time
 	EventCategoryID uint

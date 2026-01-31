@@ -1,0 +1,41 @@
+package partials
+
+import (
+	"fmt"
+	"server/models"
+	"server/views/icons"
+)
+
+templ EventCard(event models.Event) {
+	<div class="glass-panel flex flex-col justify-between items-center">
+		<h1>
+			{ event.Title }
+		</h1>
+		<p>
+			<strong>When:</strong> { event.When }
+		</p>
+		<p>
+			<strong>Where:</strong> { event.Where }
+		</p>
+		<p class="mt-2">
+			{ event.Description }
+		</p>
+		<div class="flex gap-2 mt-4">
+			<button
+				hx-get={ fmt.Sprintf("/events/edit/%d", event.ID) }
+				hx-target="main"
+				hx-push-url="true"
+			>
+				@icons.EditIcon()
+			</button>
+			<button
+				hx-delete={ fmt.Sprintf("/events/delete/%d", event.ID) }
+				hx-confirm="Are you sure you want to delete this event?"
+				hx-swap="outerHTML swap:1s"
+				hx-target="closest div.glass-panel"
+			>
+				@icons.DeleteIcon()
+			</button>
+		</div>
+	</div>
+}

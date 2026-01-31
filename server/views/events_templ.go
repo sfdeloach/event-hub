@@ -9,12 +9,13 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"server/models"
 	"server/views/layouts"
 	"server/views/partials"
 )
 
 // for htmx requests
-func EventsContent() templ.Component {
+func EventsContent(visibleEvents, offAirEvents []models.Event) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -39,7 +40,41 @@ func EventsContent() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h2>Manage Events (admin panel)</h2><ul hx-target=\"main\" hx-push-url=\"true\"><li class=\"btn-link\"><a href=\"/events/create\" hx-get=\"/events/create\">Create New Event</a></li><li class=\"btn-link\"><a href=\"/events/categories\" hx-get=\"/events/categories\">Manage Categories</a></li></ul></div><div class=\"glass-panel flex justify-center\"><input class=\"flex w-full mt-2\" hx-get=\"/events\" hx-indicator=\".htmx-indicator\" hx-target=\"#events-list\" name=\"search\" placeholder=\"🔍 Search events...\" type=\"search\"></div><div id=\"events-list\"><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div><div class=\"glass-panel\">Events eventually appear here!</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><h2>Manage Events (admin panel)</h2><ul hx-target=\"main\" hx-push-url=\"true\"><li class=\"btn-link\"><a href=\"/events/create\" hx-get=\"/events/create\">Create New Event</a></li><li class=\"btn-link\"><a href=\"/events/categories\" hx-get=\"/events/categories\">Manage Categories</a></li></ul></div><div class=\"glass-panel flex justify-center\"><input class=\"flex w-full mt-2\" hx-get=\"/events\" hx-indicator=\".htmx-indicator\" hx-target=\"#events-list\" name=\"search\" placeholder=\"🔍 Search events...\" type=\"search\"></div><div id=\"events-list\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if len(visibleEvents) == 0 {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"glass-panel\"><p class=\"text-center\">No events found.</p></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			for _, event := range visibleEvents {
+				templ_7745c5c3_Err = partials.EventCard(event).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</div><div id=\"off-air-events\"><div class=\"glass-panel mt-4\"><h2>Off-Air Events (admin panel)</h2></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if len(offAirEvents) == 0 {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"glass-panel\"><p class=\"text-center\">No off-air events found.</p></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			for _, event := range offAirEvents {
+				templ_7745c5c3_Err = partials.EventCard(event).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -48,7 +83,7 @@ func EventsContent() templ.Component {
 }
 
 // for full page requests
-func Events() templ.Component {
+func Events(visibleEvents, offAirEvents []models.Event) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -81,7 +116,7 @@ func Events() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = EventsContent().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = EventsContent(visibleEvents, offAirEvents).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

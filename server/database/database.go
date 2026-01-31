@@ -25,8 +25,7 @@ func Init() *gorm.DB {
 	}
 	log.Println("Successful database connection")
 
-	db.AutoMigrate(&models.EventCategory{})
-	// TODO: AutoMigrate Event{}
+	db.AutoMigrate(&models.EventCategory{}, &models.Event{})
 
 	return db
 }

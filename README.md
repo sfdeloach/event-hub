@@ -9,11 +9,13 @@
 - ✅ Alpine.js
 - ✅ Htmx - installed, not used yet
 - ✅ Tailwind CSS
-- 🚧 Create New Category Form
-- 🚧 Add database to network
-- 🚧 GORM setup
-- 🚧 CRUD Ops for Category Table
-- 🚧 CRUD Ops for Event Table
+- ✅ Create New Category Form
+- ✅ Add database to network
+- ✅ GORM setup
+- ✅ CRUD Ops for Category Table
+- ✅ CRUD Ops for Event Table
+- 🚧 Implement Search Feature
+- 🚧 Limited HTML elements in Description textarea
 - 🚧 Session-based Auth stored in Redis
 
 ### resources
@@ -23,19 +25,19 @@
 
 ## database
 
-- 🚧 Postgres
+- ✅ Postgres
 - 🚧 Models
-  - Users
-  - Events
+  - 🚧 Users
+  - ✅ Events
     - gorm.Model (ID, CreatedAt, UpdatedAt, DeletedAt)
     - OnAirAt
     - OffAirAt
     - Category (foreign key)
     - Title
-    - Date
-    - Time (purposely kept separate?)
-    - Description (accepts limited html tags <a> <em> <strong>)
-  - Event Categories
+    - When
+    - Where
+    - 🚧 Description (accepts limited html tags <a> <em> <strong>)
+  - ✅ Event Categories
     - gorm.Model
     - Category
 

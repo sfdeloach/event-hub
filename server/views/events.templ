@@ -1,12 +1,13 @@
 package views
 
 import (
+	"server/models"
 	"server/views/layouts"
 	"server/views/partials"
 )
 
 // for htmx requests
-templ EventsContent() {
+templ EventsContent(visibleEvents, offAirEvents []models.Event) {
 	@partials.TopBanner("Events", "")
 	<div class="glass-panel">
 		<h2>Manage Events (admin panel)</h2>
@@ -45,22 +46,39 @@ templ EventsContent() {
 		/>
 	</div>
 	<div id="events-list">
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
-		<div class="glass-panel">Events eventually appear here!</div>
+		if len(visibleEvents) == 0 {
+			<div class="glass-panel">
+				<p class="text-center">
+					No events found.
+				</p>
+			</div>
+		} else {
+			for _, event := range visibleEvents {
+				@partials.EventCard(event)
+			}
+		}
+	</div>
+	<div id="off-air-events">
+		<div class="glass-panel mt-4">
+			<h2>Off-Air Events (admin panel)</h2>
+		</div>
+		if len(offAirEvents) == 0 {
+			<div class="glass-panel">
+				<p class="text-center">
+					No off-air events found.
+				</p>
+			</div>
+		} else {
+			for _, event := range offAirEvents {
+				@partials.EventCard(event)
+			}
+		}
 	</div>
 }
 
 // for full page requests
-templ Events() {
+templ Events(visibleEvents, offAirEvents []models.Event) {
 	@layouts.MainLayout() {
-		@EventsContent()
+		@EventsContent(visibleEvents, offAirEvents)
 	}
 }

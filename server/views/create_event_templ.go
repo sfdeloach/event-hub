@@ -41,7 +41,7 @@ func CreateEventContent(categories []models.EventCategory) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form action=\"/events/create\" hx-post=\"/events/create\" hx-target=\"main\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"> <label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"glass-panel\"><form action=\"/events/create\" hx-post=\"/events/create\" hx-target=\"main\" hx-push-url=\"/events\" x-data=\"{ alwaysVisible: false }\"><div class=\"flex items-center gap-2 mb-2\"><input id=\"always_visible\" name=\"always_visible\" type=\"checkbox\" class=\"w-4 h-4 mb-0\" x-model=\"alwaysVisible\"> <label for=\"always_visible\">Always visible</label></div><template x-if=\"!alwaysVisible\"><div class=\"flex flex-col\"><label for=\"on_air_at\">On air:</label> <input id=\"on_air_at\" name=\"on_air_at\" type=\"datetime-local\"> <label for=\"off_air_at\">Off air:</label> <input id=\"off_air_at\" name=\"off_air_at\" type=\"datetime-local\"></div></template><label for=\"category\">Category:</label> <select id=\"category\" name=\"category\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -53,7 +53,7 @@ func CreateEventContent(categories []models.EventCategory) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(category.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 22, Col: 44}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 30, Col: 44}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -66,7 +66,7 @@ func CreateEventContent(categories []models.EventCategory) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(category.Category)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 22, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/create_event.templ`, Line: 30, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -77,7 +77,7 @@ func CreateEventContent(categories []models.EventCategory) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <label for=\"title\">Title:</label> <input id=\"title\" name=\"title\" type=\"text\"> <label for=\"date\">Date:</label> <input id=\"date\" name=\"date\" type=\"date\"> <label for=\"time\">Time:</label> <input id=\"time\" name=\"time\" type=\"time\"> <label for=\"location\">Location:</label> <input id=\"location\" name=\"location\" type=\"text\"> <label for=\"description\">Description:</label> <textarea id=\"description\" name=\"description\" rows=\"5\"></textarea> <button type=\"submit\">Create</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</select> <label for=\"title\">Title:</label> <input id=\"title\" name=\"title\" type=\"text\" required> <label for=\"when\">When:</label> <input id=\"when\" name=\"when\" type=\"text\" required> <label for=\"where\">Where:</label> <input id=\"where\" name=\"where\" type=\"text\" required> <label for=\"description\">Description:</label> <textarea id=\"description\" name=\"description\" rows=\"5\" required></textarea> <button type=\"submit\">Create</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

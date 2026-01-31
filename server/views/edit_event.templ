@@ -1,0 +1,89 @@
+package views
+
+import (
+	"fmt"
+	"server/models"
+	"server/views/layouts"
+	"server/views/partials"
+	"time"
+)
+
+// formatDateTime formats a time.Time for display in datetime-local inputs
+func formatDateTime(t time.Time) string {
+	if t.IsZero() {
+		return ""
+	}
+	return t.Format("2006-01-02T15:04")
+}
+
+// for htmx requests
+templ EditEventContent(event models.Event, categories []models.EventCategory) {
+	@partials.TopBanner("Edit Event", "/events")
+	<div class="glass-panel">
+		<form
+			hx-put={ fmt.Sprintf("/events/edit/%d", event.ID) }
+			hx-target="main"
+			hx-push-url="/events"
+			x-data={ fmt.Sprintf("{ alwaysVisible: %t }", event.AlwaysVisible) }
+		>
+			<div class="flex items-center gap-2 mb-2">
+				<input
+					id="always_visible"
+					name="always_visible"
+					type="checkbox"
+					class="w-4 h-4 mb-0"
+					x-model="alwaysVisible"
+					if event.AlwaysVisible {
+						checked
+					}
+				/>
+				<label for="always_visible">Always visible</label>
+			</div>
+			<template x-if="!alwaysVisible">
+				<div class="flex flex-col">
+					<label for="on_air_at">On air:</label>
+					<input
+						id="on_air_at"
+						name="on_air_at"
+						type="datetime-local"
+						value={ formatDateTime(event.OnAir) }
+					/>
+					<label for="off_air_at">Off air:</label>
+					<input
+						id="off_air_at"
+						name="off_air_at"
+						type="datetime-local"
+						value={ formatDateTime(event.OffAir) }
+					/>
+				</div>
+			</template>
+			<label for="category">Category:</label>
+			<select id="category" name="category">
+				for _, category := range categories {
+					<option
+						value={ fmt.Sprint(category.ID) }
+						if category.ID == event.EventCategoryID {
+							selected
+						}
+					>{ category.Category }</option>
+				}
+			</select>
+			<label for="title">Title:</label>
+			<input id="title" name="title" type="text" required value={ event.Title }/>
+			<label for="when">When:</label>
+			<input id="when" name="when" type="text" required value={ event.When }/>
+			<label for="where">Where:</label>
+			<input id="where" name="where" type="text" required value={ event.Where }/>
+			<label for="description">Description:</label>
+			<textarea id="description" name="description" rows="5" required>{ event.Description }</textarea>
+			<button type="submit">Save</button>
+		</form>
+	</div>
+}
+
+// for full page requests
+templ EditEvent(event models.Event, categories []models.EventCategory) {
+	@layouts.MainLayout() {
+		@EditEventContent(event, categories)
+	}
+}
