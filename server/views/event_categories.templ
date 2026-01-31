@@ -2,6 +2,7 @@ package views
 
 import (
 	"server/models"
+	"server/views/icons"
 	"server/views/layouts"
 	"server/views/partials"
 )
@@ -26,8 +27,42 @@ templ EventCategoriesContent(categories []models.EventCategory) {
 		</ul>
 	</div>
 	<div id="categories-list">
-		for _, category := range categories {
-			<div class="glass-panel">{ category.Category }</div>
+		if len(categories) == 0 {
+			<div class="glass-panel">
+				<p>
+					No categories exist yet.
+					<a
+						href="/events/categories/create"
+						hx-get="/events/categories/create"
+						hx-target="main"
+						hx-push-url="true"
+					>Create one</a> to get started.
+				</p>
+			</div>
+		} else {
+			for _, category := range categories {
+				<div class="glass-panel flex justify-between items-center">
+					<p>
+						{ category.Category }
+					</p>
+					<div>
+						<button
+							hx-get="/events/categories/edit/{ category.ID }"
+							hx-target="main"
+							hx-push-url="true"
+						>
+							@icons.EditIcon()
+						</button>
+						<button
+							hx-delete="/events/categories/delete/{ category.ID }"
+							hx-target="main"
+							hx-push-url="true"
+						>
+							@icons.DeleteIcon()
+						</button>
+					</div>
+				</div>
+			}
 		}
 	</div>
 }
