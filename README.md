@@ -1,9 +1,5 @@
 # Event Hub
 
-## issues
-
-- Production image on/off-air feature reverts to UTC (5-hour offset)
-
 ## server
 
 - ✅ Go standard library net/http

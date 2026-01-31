@@ -9,9 +9,9 @@ ARG TARGETARCH
 
 WORKDIR /server
 
-# Update packages and install Go
+# Update packages and install Go (tzdata needed for timezone support in scratch)
 RUN apt-get update \
-    && apt-get install -y golang-go ca-certificates curl \
+    && apt-get install -y golang-go ca-certificates curl tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Download Go modules
@@ -38,6 +38,9 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -a -installsuff
 FROM scratch
 
 WORKDIR /server
+
+# Copy timezone data so TZ environment variable works
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 # Copy binary and assets
 COPY --from=builder /server/server .
