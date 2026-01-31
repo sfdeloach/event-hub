@@ -1,6 +1,7 @@
 package views
 
 import (
+	"fmt"
 	"server/models"
 	"server/views/icons"
 	"server/views/layouts"
@@ -30,13 +31,7 @@ templ EventCategoriesContent(categories []models.EventCategory) {
 		if len(categories) == 0 {
 			<div class="glass-panel">
 				<p>
-					No categories exist yet.
-					<a
-						href="/events/categories/create"
-						hx-get="/events/categories/create"
-						hx-target="main"
-						hx-push-url="true"
-					>Create one</a> to get started.
+					No categories exist yet. Create one to get started.
 				</p>
 			</div>
 		} else {
@@ -47,16 +42,17 @@ templ EventCategoriesContent(categories []models.EventCategory) {
 					</p>
 					<div>
 						<button
-							hx-get="/events/categories/edit/{ category.ID }"
+							hx-get={ fmt.Sprintf("/events/categories/edit/%d", category.ID) }
 							hx-target="main"
 							hx-push-url="true"
 						>
 							@icons.EditIcon()
 						</button>
 						<button
-							hx-delete="/events/categories/delete/{ category.ID }"
-							hx-target="main"
-							hx-push-url="true"
+							hx-delete={ fmt.Sprintf("/events/categories/delete/%d", category.ID) }
+							hx-confirm="Are you sure you want to delete this category?"
+							hx-swap="outerHTML swap:1s"
+							hx-target="closest div.glass-panel"
 						>
 							@icons.DeleteIcon()
 						</button>

@@ -85,6 +85,68 @@ func (h *Handler) PostCreateEventCategory(w http.ResponseWriter, r *http.Request
 	}
 }
 
+func (h *Handler) EditEventCategory(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	var category models.EventCategory
+	if err := h.DB.First(&category, id).Error; err != nil {
+		http.Error(w, "Category not found", http.StatusNotFound)
+		return
+	}
+
+	if isHtmxRequest(r) {
+		views.EditEventCategoryContent(category).Render(r.Context(), w)
+	} else {
+		views.EditEventCategory(category).Render(r.Context(), w)
+	}
+}
+
+func (h *Handler) PutEditEventCategory(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	var category models.EventCategory
+	if err := h.DB.First(&category, id).Error; err != nil {
+		http.Error(w, "Category not found", http.StatusNotFound)
+		return
+	}
+
+	r.ParseForm()
+	newCategory := r.FormValue("category")
+	if newCategory == "" {
+		http.Error(w, "Category is required", http.StatusBadRequest)
+		return
+	}
+
+	category.Category = newCategory
+	if err := h.DB.Save(&category).Error; err != nil {
+		http.Error(w, "Failed to update category", http.StatusInternalServerError)
+		return
+	}
+
+	if isHtmxRequest(r) {
+		var categories []models.EventCategory
+		h.DB.Find(&categories)
+		views.EventCategoriesContent(categories).Render(r.Context(), w)
+	} else {
+		http.Redirect(w, r, "/events/categories", http.StatusSeeOther)
+	}
+}
+
+func (h *Handler) DeleteEventCategory(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	var category models.EventCategory
+	if err := h.DB.First(&category, id).Error; err != nil {
+		http.Error(w, "Category not found", http.StatusNotFound)
+		return
+	}
+
+	if err := h.DB.Delete(&category).Error; err != nil {
+		http.Error(w, "Failed to delete category", http.StatusInternalServerError)
+		return
+	}
+
+	// Return empty response - HTMX will replace the element with nothing
+	w.WriteHeader(http.StatusOK)
+}
+
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	if isHtmxRequest(r) {
 		views.LoginContent().Render(r.Context(), w)

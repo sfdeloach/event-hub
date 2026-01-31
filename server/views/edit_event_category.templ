@@ -1,0 +1,31 @@
+package views
+
+import (
+	"fmt"
+	"server/models"
+	"server/views/layouts"
+	"server/views/partials"
+)
+
+// for htmx requests
+templ EditEventCategoryContent(category models.EventCategory) {
+	@partials.TopBanner("Edit Event Category", "/events/categories")
+	<div class="glass-panel">
+		<form
+			hx-put={ fmt.Sprintf("/events/categories/edit/%d", category.ID) }
+			hx-target="main"
+			hx-push-url="/events/categories"
+		>
+			<label for="category">Category:</label>
+			<input id="category" name="category" type="text" required value={ category.Category }/>
+			<button type="submit">Save</button>
+		</form>
+	</div>
+}
+
+// for full page requests
+templ EditEventCategory(category models.EventCategory) {
+	@layouts.MainLayout() {
+		@EditEventCategoryContent(category)
+	}
+}

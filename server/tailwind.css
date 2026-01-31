@@ -56,4 +56,13 @@
   .btn-link::before {
     content: "> ";
   }
+
+  /* HTMX swap transitions */
+  .glass-panel {
+    transition: opacity 1s ease-out;
+  }
+
+  .glass-panel.htmx-swapping {
+    opacity: 0;
+  }
 }

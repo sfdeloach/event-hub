@@ -17,6 +17,9 @@ func main() {
 	http.HandleFunc("GET /events/categories", h.EventCategories)
 	http.HandleFunc("GET /events/categories/create", h.CreateEventCategory)
 	http.HandleFunc("POST /events/categories/create", h.PostCreateEventCategory)
+	http.HandleFunc("GET /events/categories/edit/{id}", h.EditEventCategory)
+	http.HandleFunc("PUT /events/categories/edit/{id}", h.PutEditEventCategory)
+	http.HandleFunc("DELETE /events/categories/delete/{id}", h.DeleteEventCategory)
 	http.HandleFunc("GET /login", h.Login)
 
 	fs := http.FileServer(http.Dir("static/"))
